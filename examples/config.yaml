@@ -1,0 +1,31 @@
+#
+# YAML Config file for evmcmd
+#
+
+# Application config items
+application:
+   prompt: "evmcmd>"
+   instpath: "./"
+
+# Connection config items
+connection:
+#<<<<<<< HEAD
+   host: "10.16.132.167"
+   port: "443" # Use this in case the CFME engine is listening on another port
+#=======
+#   host: "10.15.69.15"
+#   port: "443" # Use this in case the CFME engine is listening on another port
+#>>>>>>> f28c2e0bb4b425b3397559421b9e6cb966788976
+   user: "admin"
+   pass: "smartvm"
+
+aws:
+   default_region: 'us-west-2'
+   #access_key_id: 'AKIAJGKVLRKTTLN4RNR'
+   #secret_access_key: 'yIor137Dd/J6HWKTf2IkUYizrOSc+fNkMkLyllbh'
+   access_key_id: 'AKIAIOCVMVAOW327SEJQ'
+   secret_access_key: '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'
+   
+   # My Root AWS ID
+   #access_key_id: 'AKIAIMTR37Q3ZH2BDOYQ'
+   #secret_access_key: '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'

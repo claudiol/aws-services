@@ -1,0 +1,14 @@
+#
+# Simple YAML configuration for Amazon for the RHC CFME Ruby toolkit
+#
+
+#
+# AWS section
+#
+# default-region - This where you specify your Amazon default region
+# aces_key_id - This is the access key id that you generate from Amazon to gain access to the AWS Management Console
+# secret_access_key - This is the secret access key that you generate from Amazon to gain access to the AWS Management Console
+aws:
+   default_region: 'us-west-1'
+   access_key_id: 'AKIAJOETGUMINRXEBNVA'
+   secret_access_key: ''
