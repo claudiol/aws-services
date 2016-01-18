@@ -3,7 +3,7 @@ require 'readline'
 require 'yaml'
 
 
-module AWS
+module CFAWS
   #
   # Class to support CRUD for AWS Relational Database Service (RDS)
   # You create a bucket by name. Bucket names must be globally unique and must be DNS compatible.

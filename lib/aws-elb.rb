@@ -7,7 +7,7 @@ require 'aws-sdk'
 require 'readline'
 require 'yaml'
 
-module AWS
+module CFAWS
   #
   # Class to support CRUD for AWS Elastic Load Balancers (ELBs)
   #

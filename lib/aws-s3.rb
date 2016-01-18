@@ -8,7 +8,7 @@ require 'yaml'
 # Class to support CRUD for AWS S3 buckets
 # You create a bucket by name. Bucket names must be globally unique and must be DNS compatible.
 
-module AWS
+module CFAWS
 	class S3
 
 		#

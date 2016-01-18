@@ -2,7 +2,7 @@ require 'aws-sdk'
 require 'readline'
 require 'yaml'
 
-module AWS
+module CFAWS
   class EBS
     # @!method initialize
     # @param region - Region name you want to create your EBS e.g. :region => "us-west-1"

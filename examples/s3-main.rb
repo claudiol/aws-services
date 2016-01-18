@@ -19,7 +19,7 @@ begin
 	bucket_name = 'claudiol-s3-bucket'
 
 	# Create a new instance of the AwsS3 class 
-	s3 = AwsS3.new('config.yaml')
+	s3 = CFAWS::S3.new('config.yaml')
 
 	# Ask if the bucket exists
 	if s3.exists(bucket_name) == true
@@ -27,7 +27,7 @@ begin
 		s3.delete_bucket(bucket_name)
 		puts 'Done.'
   end
-
+  
   # Now let's create the bucket ...
 	puts 'Creating bucket ...'
 	bucket = s3.create_bucket(bucket_name)
@@ -57,4 +57,5 @@ begin
 	#end
 rescue => exception
 	puts exception.message
+        puts exception.backtrace
 end

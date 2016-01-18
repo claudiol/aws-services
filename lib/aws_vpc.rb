@@ -5,7 +5,7 @@ require 'yaml'
 #
 # Module AWS
 #
-module AWS
+module CFAWS
   #
   # Class VPC - Contains all the helper methods for VPC's
   #

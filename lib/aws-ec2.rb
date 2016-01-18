@@ -10,7 +10,7 @@ require 'yaml'
 #
 # Module for AWS
 #
-module AWS
+module CFAWS
 #
 # Class to support for AWS EC2
 #
