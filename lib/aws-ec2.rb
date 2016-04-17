@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Start of the Ruby AWS 
+# Start of the Ruby AWS
 # AwsEC2 class
 #
 require 'aws-sdk'
@@ -114,6 +114,15 @@ module CFAWS
     #
     def available_instances
       return @ec2_object.instances
+    end
+
+    # @!method key_pairs
+    # List of available regions in EC2
+    #
+    # @return [AWS::SubnetCollection] .
+    #
+    def key_pairs
+      return @ec2_object.key_pairs
     end
 
     def all_images
