@@ -20,7 +20,7 @@ connection:
    pass: "smartvm"
 
 aws:
-   default_region: 'us-west-2'
+   default_region: 'us-west-1'
    #access_key_id: 'AKIAJGKVLRKTTLN4RNR'
    #secret_access_key: 'yIor137Dd/J6HWKTf2IkUYizrOSc+fNkMkLyllbh'
    access_key_id: 'AKIAIOCVMVAOW327SEJQ'

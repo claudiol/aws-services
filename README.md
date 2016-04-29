@@ -1,7 +1,7 @@
 What is this AWSServices?
 --
 
-This is a helper class library in Ruby to create AWS Elastic Load Balancers (ELBs).  The idea is to  
+This is a helper class library in Ruby to create AWS Elastic Load Balancers (ELBs), S3 Buckets.  The idea is to  
 create an abstraction layer to the AWS SDK to create ELBs via a Ruby script inside of Cloudforms.
 
 Yes you can use the AWS SDK directly within Cloudforms but there are some other functionality that we would
