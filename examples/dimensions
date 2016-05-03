@@ -1,0 +1,30 @@
+BillingAlarm
+metrics
+{:dimensions=>[{:name=>"TopicName", :value=>"NotifyMe"}], :metric_name=>"NumberOfNotificationsDelivered", :namespace=>"AWS/SNS"}
+{:dimensions=>[{:name=>"TopicName", :value=>"NotifyMe"}], :metric_name=>"NumberOfNotificationsFailed", :namespace=>"AWS/SNS"}
+{:dimensions=>[{:name=>"Currency", :value=>"USD"}], :metric_name=>"EstimatedCharges", :namespace=>"AWS/Billing"}
+{:dimensions=>[{:name=>"ServiceName", :value=>"AWSDataTransfer"}, {:name=>"Currency", :value=>"USD"}], :metric_name=>"EstimatedCharges", :namespace=>"AWS/Billing"}
+{:dimensions=>[{:name=>"ServiceName", :value=>"AmazonEC2"}, {:name=>"Currency", :value=>"USD"}], :metric_name=>"EstimatedCharges", :namespace=>"AWS/Billing"}
+{:dimensions=>[{:name=>"ServiceName", :value=>"AmazonS3"}, {:name=>"Currency", :value=>"USD"}], :metric_name=>"EstimatedCharges", :namespace=>"AWS/Billing"}
+{:dimensions=>[{:name=>"ServiceName", :value=>"AmazonSNS"}, {:name=>"Currency", :value=>"USD"}], :metric_name=>"EstimatedCharges", :namespace=>"AWS/Billing"}
+{:dimensions=>[{:name=>"ServiceName", :value=>"AWSQueueService"}, {:name=>"Currency", :value=>"USD"}], :metric_name=>"EstimatedCharges", :namespace=>"AWS/Billing"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"NetworkIn", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"DiskWriteOps", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"NetworkOut", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"DiskWriteBytes", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"DiskReadBytes", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"CPUUtilization", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"DiskReadOps", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"VolumeId", :value=>"vol-30f16fec"}], :metric_name=>"VolumeReadOps", :namespace=>"AWS/EBS"}
+{:dimensions=>[{:name=>"VolumeId", :value=>"vol-30f16fec"}], :metric_name=>"VolumeIdleTime", :namespace=>"AWS/EBS"}
+{:dimensions=>[{:name=>"VolumeId", :value=>"vol-30f16fec"}], :metric_name=>"VolumeTotalWriteTime", :namespace=>"AWS/EBS"}
+{:dimensions=>[{:name=>"VolumeId", :value=>"vol-30f16fec"}], :metric_name=>"VolumeWriteOps", :namespace=>"AWS/EBS"}
+{:dimensions=>[{:name=>"VolumeId", :value=>"vol-30f16fec"}], :metric_name=>"VolumeWriteBytes", :namespace=>"AWS/EBS"}
+{:dimensions=>[{:name=>"VolumeId", :value=>"vol-30f16fec"}], :metric_name=>"VolumeQueueLength", :namespace=>"AWS/EBS"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"CPUCreditBalance", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"CPUCreditUsage", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"StatusCheckFailed", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"StatusCheckFailed_Instance", :namespace=>"AWS/EC2"}
+{:dimensions=>[{:name=>"InstanceId", :value=>"i-e8057569"}], :metric_name=>"StatusCheckFailed_System", :namespace=>"AWS/EC2"}
+response_metadata
+{:request_id=>"6c656931-b598-11e5-a345-59eaaa49b737"}
