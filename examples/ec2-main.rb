@@ -91,7 +91,7 @@ def retrieve_all_vpcs (ec2_object)
   rescue exception => ex
     puts "Exception in retrieve_all_vpcs: #{ex.message}"
   end
-  return return false
+  return false
 end
 
 
@@ -122,7 +122,7 @@ def retrieve_key_pairs (ec2_object)
   rescue exception => ex
     puts "Exception in retrieve_key_pairs: #{ex.message}"
   end
-  return return false
+  return false
 end
 
 def retrieve_all_images(ec2_object)
