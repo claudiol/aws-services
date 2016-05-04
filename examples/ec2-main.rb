@@ -157,7 +157,9 @@ begin
   fVpcs = retrieve_all_vpcs(ec2)
   fInstances = retrieve_all_instances(ec2)
   fKeyPairs = retrieve_key_pairs(ec2)
-  fImageList = retrieve_all_images(ec2)
+  if @debug 
+    fImageList = retrieve_all_images(ec2)
+  end
 
   puts "Zone Test = #{fZones}"
   puts "Image Test = #{fImages}"
