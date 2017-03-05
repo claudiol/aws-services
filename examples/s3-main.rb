@@ -16,7 +16,7 @@ load 'aws-elb.rb'
 # S3 class test ....
 begin
 	# Local variable that contains the name for your bucket
-	bucket_name = 'claudiol-s3-bucket'
+	bucket_name = 'claudiol-s3-bucket-redhatic'
 
 	# Create a new instance of the AwsS3 class 
 	s3 = CFAWS::S3.new('config.yaml')
@@ -42,10 +42,10 @@ begin
 		puts "Please see the exception thrown from create_bucket"
 	end
 
-  s3.enable_logging(bucket_name)
-
-  s3.list_buckets.each do | bucket |
-      puts bucket.name
+  s3.list_buckets.each_with_index do | bucket_elements,index |
+	  bucket_elements[index].each do | bucket |
+	    puts bucket.name
+	  end
   end
 
 

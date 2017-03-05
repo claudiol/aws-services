@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Start of the Ruby AWS 
+# Start of the Ruby AWS
 require 'aws-sdk'
 require 'yaml'
 
@@ -26,13 +26,12 @@ module CFAWS
 			@access_key_id = @config['aws']['access_key_id']
 			@secret_access_key = @config['aws']['secret_access_key']
 
-			AWS.config(
-					:access_key_id => @access_key_id,
-					:secret_access_key => @secret_access_key,
+      # New API changes for aws_sdk 2.X
+			# Create basic S3 Instance
+      @s3_instance = Aws::S3::Client.new(
+					access_key_id:  @access_key_id,
+					secret_access_key: @secret_access_key,
 			)
-
-			# Create the basic S3 object
-			@s3_instance = AWS::S3.new
 
 			# Defined ACL permissions for buckets from Amazon
 			@acl_permissions = [':private', ':public_read', ':public_read_write', ':authenticated_read', ':bucket_owner_read', ':bucket_owner_full_control']
@@ -77,22 +76,19 @@ module CFAWS
 				puts "Required name needed to create a bucket"
 			else
 				# Load up the 'bucket' we want to store things in
-				bucket = @s3_instance.buckets[bucket_name]
-				# If the bucket doesn't exist, create it
-				begin
-					unless bucket.exists?
-						puts "Need to make bucket #{bucket_name}..."
-						@s3_instance.buckets.create(bucket_name) #acl: => :bucket_owner_full_control)
-						# Return the newly created bucket
-						return bucket
-					else
-						puts "Info: Bucket #{bucket_name} already exists! Returning existing bucket"
-						return bucket
+				buckets = @s3_instance.list_buckets
+
+		    buckets.each_with_index do | bucket_elements, index |
+					bucket_elements[index].each do | bucket |
+	          if bucket.name == "#{bucket_name}"
+						  puts "Info: Bucket #{bucket_name} already exists! Returning existing bucket"
+							return bucket
+						end
 					end
-				rescue => exception
-							puts exception.message
 				end
-			end
+				puts "Need to make bucket #{bucket_name}..."
+				@s3_instance.create_bucket({bucket: "#{bucket_name}"}) #acl: => :bucket_owner_full_control)
+		  end
 		end
 
 		#
@@ -105,19 +101,45 @@ module CFAWS
 		def exists(bucket_name)
 			begin
 				# Load up the 'bucket' we want to store things in
-				bucket = @s3_instance.buckets[bucket_name]
-				puts bucket.inspect
-				puts bucket.exists?
-				# If the bucket does exist return true else false
-				if  bucket.exists?
-						return true
-				else
-					return false
+				buckets = @s3_instance.list_buckets
+
+		    buckets.each_with_index do | bucket_elements, index |
+					bucket_elements[index].each do | bucket |
+						if bucket.name == "#{bucket_name}"
+						  puts "Info: Bucket #{bucket_name} already exists! Returning existing bucket"
+							return true
+						end
+					end
 				end
+        return false
 			rescue => exception
 				puts exception.message
 			end
 		end
+
+		#
+		# @!method find_bucket
+		#
+		# @param bucket_name [String] Name of the bucket to write to
+		def find_bucket (bucket_name)
+			begin
+				# Load up the 'bucket' we want to store things in
+				buckets = @s3_instance.list_buckets
+
+		    buckets.each_with_index do | bucket_elements, index |
+					bucket_elements[index].each do | bucket |
+						if bucket.name == "#{bucket_name}"
+						  puts "Info: Bucket #{bucket_name} already exists! Returning existing bucket"
+							return bucket
+						end
+					end
+				end
+        return nil
+			rescue => exception
+				puts exception.message
+			end
+		end
+
 
 		#
 		# @!method write_to_bucket
@@ -130,13 +152,19 @@ module CFAWS
 				if bucket_name == nil || filename == nil
 					puts "Bucket Name and Filename are required"
 				else
+					@s3_resource = Aws::S3::Resource.new
 					# Load up the 'bucket' we want to store things in
-					bucket = @s3_instance.buckets[bucket_name]
+					#bucket = self.find_bucket(bucket_name)
+					key = filename
+					object = @s3_resource.bucket("#{bucket_name}").object("#{filename}")
 					# Grab a reference to an object in the bucket with the name we require
-					object = bucket.objects[File.basename(filename)]
+					#object = bucket.key()[File.basename(filename)]
 					puts object.inspect
 					# Write a local file to the aforementioned object on S3
-					object.write(:file => filename)
+					# IO object
+					File.open(File.basename(filename), 'rb') do |file|
+  					object.put(body: file)
+					end
 				end
 			rescue => exception
 				puts exception.message
@@ -145,25 +173,10 @@ module CFAWS
 
 		def list_buckets()
 			begin
-				return @s3_instance.buckets
+				return @s3_instance.list_buckets
 			end
 		end
 
-		def enable_logging(bucket_name)
-			begin
-				if bucket_name == nil
-					puts "Bucket Name is required"
-				else
-					# Load up the 'bucket' we want to store things in
-					bucket = @s3_instance.buckets[bucket_name]
-					puts bucket.name
-					#bucket.enable_logging_for(bucket_name)
-				end
-			rescue => exception
-				puts exception.message
-			end
-
-		end
 		#
 		# @!method delete_bucket
 		#
@@ -176,21 +189,13 @@ module CFAWS
 					puts "Error: Required name for bucket cannot be nil"
 				else
 					# Load up the 'bucket' we want to store things in
-					bucket = @s3_instance.buckets[bucket_name]
+					bucket = self.find_bucket(bucket_name)
+					puts bucket.inspect
 					# If the bucket exists empty it's objects
-					if bucket.exists?
-						count = 0
-						while(!bucket.empty?)
-							puts "Deleting objects in bucket"
-							bucket.objects.each do |object|
-								object.delete
-								count += 1
-							end # end each do
-							puts "Done deleting [#{count}] objects"
-						end # end while
+					if bucket != nil
 						puts "Deleting bucket"
-							bucket.delete!
-							return true
+						@s3_instance.delete_bucket(bucket: "#{bucket_name}")
+						return true
 					else
 						puts "Info: Bucket #{bucket_name} does not exist! "
 						return false
