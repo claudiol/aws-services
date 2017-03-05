@@ -18,134 +18,95 @@ load 'aws-ec2.rb'
 @debug = false
 
 def retrieve_all_zones (ec2_object)
-  begin
-    zones = ec2_object.availability_zones
-    puts "Found #{zones.count}" if @debug
-    if zones.nil?
+    resp = ec2_object.availability_zones
+    puts "Found #{resp.availability_zones.count}" if @debug
+    if resp.nil?
       return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_zones: #{ex.message}"
-  end
   return false
 end
 
 
 def retrieve_all_instances (ec2_object)
-  begin
-    instances = ec2_object.availability_zones
-    puts "Found #{instances.count}" if @debug
+    resp = ec2_object.availability_zones
+    puts "Found #{resp.reservations[0].instances.count}" if @debug
     if instances.nil?
     return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_instances: #{ex.message}"
-  end
-  return false
 end
 
 
 def retrieve_all_subnets (ec2_object)
-  begin
-    subnets = ec2_object.available_subnets
-    puts "Found #{subnets.count}" if @debug
-    if subnets.nil?
+    resp = ec2_object.available_subnets
+    puts "Found #{resp.subnets.count}" if @debug
+    if resp.nil?
       return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_subnets: #{ex.message}"
-  end
-  return false
 end
 
 def retrieve_all_regions (ec2_object)
-  begin
-    regions = ec2_object.available_regions
-    puts "Found #{regions.count}" if @debug
-    if regions.nil?
+    resp = ec2_object.available_regions
+    puts "Found #{resp.regions.count}" if @debug
+    if resp.nil?
       return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_regions: #{ex.message}"
-  end
-  return false
 end
 
 def retrieve_all_vpcs (ec2_object)
-  begin
-    list = ec2_object.available_vpcs
-    puts "Found #{list.count}" if @debug
-    if list.nil?
+    resp = ec2_object.available_vpcs
+    puts "Found #{resp.vpcs.count}" if @debug
+    if resp.nil?
       return false
     else
     return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_vpcs: #{ex.message}"
-  end
-  return return false
 end
 
 
 def retrieve_all_instances (ec2_object)
-  begin
-    list = ec2_object.available_instances
-    puts "Found #{list.count}" if @debug
-    if list.nil?
+    resp = ec2_object.available_instances
+    puts "Found #{resp.instances.count}" if @debug
+    if resp.nil?
       return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_instances: #{ex.message}"
-  end
-  return false
 end
 
 def retrieve_key_pairs (ec2_object)
-  begin
-    list = ec2_object.key_pairs
-    puts "Found #{list.count}" if @debug
-    if list.nil?
+    resp = ec2_object.key_pairs
+    puts "Found #{resp.key_pairs.count}" if @debug
+    if resp.nil?
       return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_key_pairs: #{ex.message}"
-  end
-  return return false
 end
 
 def retrieve_all_images(ec2_object)
-  begin
     puts "Retrieving all images"
-    images = ec2_object.all_images
-    puts "Image count = #{images.count}"
-    images.each { | image |
+    resp = ec2_object.all_images
+    puts "Image count = #{resp.images.count}"
+    resp.images.each { | image |
       puts "Image: #{image.name}"
     }
-    if images.nil?
+    if resp.nil?
       return false
     else
       return true
     end
-  rescue exception => ex
-    puts "Exception in retrieve_all_images: #{ex.message}"
-  end
   return false
 end
 
 # EC2 class test ....
-begin
   # Local variable that contains the name for your bucket
   puts "Creating EC2 class"
   ec2 = CFAWS::EC2.new('config.yaml')
@@ -167,7 +128,3 @@ begin
   puts "Instance Test = #{fInstances}"
   puts "Key Pairs Test = #{fKeyPairs}"
   puts "Image List Test = #{fImageList}"
-rescue => exception
-  puts exception.message
-  puts exception.backtrace
-end

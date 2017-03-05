@@ -34,13 +34,12 @@ module CFAWS
         @region = @config['aws']['default_region']
       end
 
-      AWS.config(
+      # Create the basic EC2 object
+      @ec2_object = Aws::EC2::Client.new(
+	  :region => @region,
           :access_key_id => @access_key_id,
           :secret_access_key => @secret_access_key
       )
-
-      # Create the basic EC2 object
-      @ec2_object = AWS::EC2.new(:region => @region)
 
     end
 
@@ -66,7 +65,7 @@ module CFAWS
     #
     def availability_zones
       begin
-        zones = @ec2_object.availability_zones
+        zones = @ec2_object.describe_availability_zones
         return zones
       rescue => exception
         puts exception.message
@@ -80,7 +79,7 @@ module CFAWS
     # @return [AWS::SubnetCollection] .
     #
     def available_subnets
-      return @ec2_object.subnets
+      return @ec2_object.describe_subnets
     end
 
     # @!method available_regions
@@ -89,7 +88,7 @@ module CFAWS
     # @return [AWS::RegionCollection] .
     #
     def available_regions
-      return @ec2_object.regions
+      return @ec2_object.describe_regions
     end
 
     # @!method available_vpcs
@@ -101,7 +100,7 @@ module CFAWS
     # @return [AWS::VPCCollection] .
     #
     def available_vpcs
-      return @ec2_object.vpcs
+      return @ec2_object.describe_vpcs
     end
 
     # @!method available_instances
@@ -113,7 +112,7 @@ module CFAWS
     # @return [AWS::InstanceCollection] .
     #
     def available_instances
-      return @ec2_object.instances
+      return @ec2_object.describe_instances
     end
 
     # @!method key_pairs
@@ -122,11 +121,11 @@ module CFAWS
     # @return [AWS::SubnetCollection] .
     #
     def key_pairs
-      return @ec2_object.key_pairs
+      return @ec2_object.describe_key_pairs
     end
 
     def all_images
-      return @ec2_object.images
+      return @ec2_object.describe_images
     end
   end
 end
